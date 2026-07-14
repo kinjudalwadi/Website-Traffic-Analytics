@@ -181,12 +181,10 @@ Data Analytics | Python | SQL | Tableau | Agentic AI
 
 Ahmedabad, Gujarat, India
 
-LinkedIn: https://linkedin.com/in/your-linkedin-profile
+LinkedIn: https://www.linkedin.com/in/kinjal-dalwadi-10729624/
 
 GitHub: https://github.com/kinjudalwadi
 
 ---
 
-## License
 
-This project is licensed under the MIT License.
