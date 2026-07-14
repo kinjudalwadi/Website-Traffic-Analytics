@@ -9,7 +9,7 @@ traffic sources, website engagement, and conversion performance.
 Tools:
 - Python
 - Pandas
-- NumPy
+- NumPy 
 - Matplotlib
 
 """
