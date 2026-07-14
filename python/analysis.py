@@ -362,3 +362,136 @@ print("\n")
 print("=" * 70)
 print("KPI ANALYSIS COMPLETED")
 print("=" * 70)
+
+# ==========================================================
+# DATA VISUALIZATION
+# ==========================================================
+
+print("\n" + "=" * 70)
+print("GENERATING VISUALIZATIONS")
+print("=" * 70)
+
+# Create images folder if it doesn't exist
+os.makedirs("images", exist_ok=True)
+
+# ----------------------------------------------------------
+# Chart 1: Daily Users Trend
+# ----------------------------------------------------------
+
+daily_users = df.groupby("Date")["Users"].sum()
+
+plt.figure(figsize=(12,6))
+plt.plot(daily_users.index, daily_users.values, marker='o')
+plt.title("Daily Website Users")
+plt.xlabel("Date")
+plt.ylabel("Users")
+plt.grid(True)
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.savefig("images/daily_users_trend.png")
+plt.close()
+
+print("✓ Daily Users Trend saved.")
+
+# ----------------------------------------------------------
+# Chart 2: Traffic Source Performance
+# ----------------------------------------------------------
+
+traffic = df.groupby("TrafficSource")["Users"].sum().sort_values()
+
+plt.figure(figsize=(8,5))
+traffic.plot(kind="bar")
+plt.title("Users by Traffic Source")
+plt.xlabel("Traffic Source")
+plt.ylabel("Users")
+plt.xticks(rotation=30)
+plt.tight_layout()
+plt.savefig("images/traffic_source_analysis.png")
+plt.close()
+
+print("✓ Traffic Source Analysis saved.")
+
+# ----------------------------------------------------------
+# Chart 3: Device Distribution
+# ----------------------------------------------------------
+
+device = df.groupby("Device")["Users"].sum()
+
+plt.figure(figsize=(6,6))
+plt.pie(
+    device,
+    labels=device.index,
+    autopct="%1.1f%%",
+    startangle=90
+)
+
+plt.title("Device Distribution")
+plt.tight_layout()
+plt.savefig("images/device_distribution.png")
+plt.close()
+
+print("✓ Device Distribution saved.")
+
+# ----------------------------------------------------------
+# Chart 4: Top Countries
+# ----------------------------------------------------------
+
+country = (
+    df.groupby("Country")["Users"]
+    .sum()
+    .sort_values(ascending=False)
+    .head(10)
+)
+
+plt.figure(figsize=(9,6))
+country.plot(kind="barh")
+plt.title("Top 10 Countries by Users")
+plt.xlabel("Users")
+plt.ylabel("Country")
+plt.tight_layout()
+plt.savefig("images/top_countries.png")
+plt.close()
+
+print("✓ Top Countries chart saved.")
+
+# ----------------------------------------------------------
+# Chart 5: Monthly Conversions
+# ----------------------------------------------------------
+
+monthly_conversion = (
+    df.groupby("Month")["Conversions"]
+    .sum()
+)
+
+plt.figure(figsize=(10,5))
+monthly_conversion.plot(marker="o")
+plt.title("Monthly Conversions")
+plt.xlabel("Month")
+plt.ylabel("Conversions")
+plt.grid(True)
+plt.tight_layout()
+plt.savefig("images/monthly_conversions.png")
+plt.close()
+
+print("✓ Monthly Conversions chart saved.")
+
+# ----------------------------------------------------------
+# Chart 6: Bounce Rate Distribution
+# ----------------------------------------------------------
+
+plt.figure(figsize=(8,5))
+plt.hist(df["BounceRate"], bins=10)
+plt.title("Bounce Rate Distribution")
+plt.xlabel("Bounce Rate")
+plt.ylabel("Frequency")
+plt.tight_layout()
+plt.savefig("images/bounce_rate_distribution.png")
+plt.close()
+
+print("✓ Bounce Rate Distribution saved.")
+
+print("\nAll charts have been saved in the images folder.")
+
+print("=" * 70)
+print("VISUALIZATION COMPLETED")
+print("=" * 70)
