@@ -1,2 +1,3 @@
-# Website-Traffic-Analytics
-Website Traffic Analytics Dashboard using Python, SQL and Tableau
+# Website Traffic Analytics
+
+Python + SQL project for analyzing website traffic.
