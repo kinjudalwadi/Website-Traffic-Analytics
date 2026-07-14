@@ -206,3 +206,159 @@ print("DATA CLEANING COMPLETED")
 print("=" * 70)
 
 print("Dataset is ready for Exploratory Data Analysis (EDA).")
+# ==========================================================
+# KEY PERFORMANCE INDICATORS (KPIs)
+# ==========================================================
+
+print("\n" + "=" * 70)
+print("KEY PERFORMANCE INDICATORS (KPIs)")
+print("=" * 70)
+
+# Total Users
+total_users = df["Users"].sum()
+
+# Total Sessions
+total_sessions = df["Sessions"].sum()
+
+# Total Page Views
+total_pageviews = df["PageViews"].sum()
+
+# Average Bounce Rate
+avg_bounce_rate = df["BounceRate"].mean()
+
+# Average Session Duration
+avg_session_duration = df["SessionDuration"].mean()
+
+# Total Conversions
+total_conversions = df["Conversions"].sum()
+
+# Conversion Rate
+conversion_rate = (total_conversions / total_sessions) * 100
+
+# Average Pages per Session
+pages_per_session = total_pageviews / total_sessions
+
+# Average Users per Day
+avg_users_per_day = df.groupby("Date")["Users"].sum().mean()
+
+print(f"Total Users               : {total_users:,}")
+print(f"Total Sessions            : {total_sessions:,}")
+print(f"Total Page Views          : {total_pageviews:,}")
+print(f"Average Bounce Rate       : {avg_bounce_rate:.2f}%")
+print(f"Average Session Duration  : {avg_session_duration:.2f} seconds")
+print(f"Total Conversions         : {total_conversions:,}")
+print(f"Conversion Rate           : {conversion_rate:.2f}%")
+print(f"Pages Per Session         : {pages_per_session:.2f}")
+print(f"Average Users Per Day     : {avg_users_per_day:.2f}")
+
+print("\n")
+
+# ==========================================================
+# HIGHEST AND LOWEST VALUES
+# ==========================================================
+
+print("=" * 70)
+print("PERFORMANCE HIGHLIGHTS")
+print("=" * 70)
+
+highest_users = df.loc[df["Users"].idxmax()]
+lowest_users = df.loc[df["Users"].idxmin()]
+
+print("Highest Traffic Day")
+print("-------------------")
+print(f"Date      : {highest_users['Date'].date()}")
+print(f"Users     : {highest_users['Users']}")
+print(f"Sessions  : {highest_users['Sessions']}")
+print()
+
+print("Lowest Traffic Day")
+print("------------------")
+print(f"Date      : {lowest_users['Date'].date()}")
+print(f"Users     : {lowest_users['Users']}")
+print(f"Sessions  : {lowest_users['Sessions']}")
+
+print("\n")
+
+# ==========================================================
+# MONTHLY KPI SUMMARY
+# ==========================================================
+
+print("=" * 70)
+print("MONTHLY PERFORMANCE SUMMARY")
+print("=" * 70)
+
+monthly_summary = (
+    df.groupby("Month")
+    .agg({
+        "Users": "sum",
+        "Sessions": "sum",
+        "PageViews": "sum",
+        "Conversions": "sum"
+    })
+)
+
+print(monthly_summary)
+
+print("\n")
+
+# ==========================================================
+# DEVICE-WISE USERS
+# ==========================================================
+
+print("=" * 70)
+print("DEVICE PERFORMANCE")
+print("=" * 70)
+
+device_summary = (
+    df.groupby("Device")["Users"]
+    .sum()
+    .sort_values(ascending=False)
+)
+
+print(device_summary)
+
+print("\n")
+
+# ==========================================================
+# TRAFFIC SOURCE PERFORMANCE
+# ==========================================================
+
+print("=" * 70)
+print("TRAFFIC SOURCE PERFORMANCE")
+print("=" * 70)
+
+traffic_summary = (
+    df.groupby("TrafficSource")
+    .agg({
+        "Users": "sum",
+        "Sessions": "sum",
+        "Conversions": "sum"
+    })
+    .sort_values(by="Users", ascending=False)
+)
+
+print(traffic_summary)
+
+print("\n")
+
+# ==========================================================
+# COUNTRY PERFORMANCE
+# ==========================================================
+
+print("=" * 70)
+print("TOP COUNTRIES")
+print("=" * 70)
+
+country_summary = (
+    df.groupby("Country")["Users"]
+    .sum()
+    .sort_values(ascending=False)
+)
+
+print(country_summary)
+
+print("\n")
+
+print("=" * 70)
+print("KPI ANALYSIS COMPLETED")
+print("=" * 70)
